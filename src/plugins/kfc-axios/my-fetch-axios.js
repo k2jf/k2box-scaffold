@@ -7,7 +7,7 @@ const getQueryString = function (params) {
   return Object.keys(params)
     .map(k => esc(k) + '=' + esc(params[k]))
     .join('&')
-}
+};
 
 const composeUrl = function (url, params) {
   if (params) {
@@ -16,7 +16,7 @@ const composeUrl = function (url, params) {
   } else {
     return url
   }
-}
+};
 
 /**
  * an axios implementation using Fetch API
@@ -43,7 +43,7 @@ const fetchEngine = function (config) {
     // integrity: undefined,
     // keepalive: false,
     // signal: null
-  })
+  });
 
   // note print out request (Request) object
   // console.log('fetchEngine: Request -> %o', request);
@@ -136,16 +136,16 @@ export default function internalInstall (Vue, options) {
       '1. in main.js, Vue.use(kfcFetch, {login: ...}) \n' +
       '2. in App.vue created() hook, use `this.$axios.updateLoginMethod()` .\n' +
       '(remember to opt `this` for `that` in supplied login method!)')
-  }
+  };
 
   // for this constructor, I use adapter to manually plugin Fetch API inside axios.
   var axios = Axios.create({
     baseURL: baseUrl,
     adapter: fetchEngine
-  })
+  });
 
   // recover the token
-  let token = sessionStorage.getItem('$kmx-auth-token') || ''
+  let token = sessionStorage.getItem('$kmx-auth-token') || '';
   if (token) {
     axios.defaults.headers.common[keyName] = token
   }
@@ -154,7 +154,7 @@ export default function internalInstall (Vue, options) {
     if (token) {
       sessionStorage.setItem('$kmx-auth-token', token)
     }
-  })
+  });
 
   /*
    * manually install $Message in case iview not being globally installed
@@ -163,55 +163,55 @@ export default function internalInstall (Vue, options) {
    * Thus `import { Message } from 'iview'` is safe.
    * If tip is assigned to `Message`, it will be a stand-alone message instance
    */
-  const tip = Vue.prototype.$Message || Message
+  const tip = Vue.prototype.$Message || Message;
 
   axios.interceptors.response.use(function onSuccess (resp) {
     return resp
   }, function onFailure (error) {
     // extract option 'silent' from all kinds of rejected Promises
-    const allowPopup = !(error.config && error.config.silent)
+    const allowPopup = !(error.config && error.config.silent);
 
     if (error.message === '302') { // 1. handle CAS Login redirect
-      allowPopup && tip.error('登录信息失效，请重新登录！')
-      login()
+      allowPopup && tip.error('登录信息失效，请重新登录！');
+      login();
       throw new Error('need login')
     } else if (error.message === 'network') { // 2. handle network error
-      allowPopup && tip.error('网络中断，请稍候重试')
+      allowPopup && tip.error('网络中断，请稍候重试');
       throw new Error('network error')
     } else if (error.response) {
-      var statusCode = error.response.status
+      var statusCode = error.response.status;
 
       if (statusCode === 401) { // 3.1. 401 UnAuthorized
-        allowPopup && tip.error('登录信息失效，请重新登录！')
-        login()
+        allowPopup && tip.error('登录信息失效，请重新登录！');
+        login();
         throw new Error('need login')
       } else if (statusCode === 403) { // 3.2 403 Forbidden
         allowPopup && tip.error({
           content: '操作被阻止：权限不足',
           duration: 3
-        })
+        });
         throw new Error('forbidden')
       } else if (statusCode === 404) { // 3.3 404 Not Found
         allowPopup && tip.warning({
           content: '[404 Not Found] 您要访问的接口不存在<br/>' + error.config.url,
           duration: 3
-        })
+        });
         throw new Error('404')
       } else if (statusCode === 500) { // 3.4 500 internal error
         allowPopup && tip.error({
           content: `服务器开小差了：${error.response.data.message}`,
           duration: 3
-        })
+        });
         throw new Error('api server error')
       } else { // 3.5 400, or other error in response
         allowPopup && tip.error({
           content: `[${statusCode}] ${error.response.data.message}`,
           duration: 3
-        })
+        });
         throw new Error('unspecified error: ' + statusCode)
       }
     } else if (error.request) { // 4. request valid, but no response
-      console.error('request error: %o', error.request)
+      console.error('request error: %o', error.request);
       allowPopup && tip.error({
         content: `${error.message}`,
         duration: 3
@@ -222,22 +222,22 @@ export default function internalInstall (Vue, options) {
 
     // console.log('error --> %o', error.config);
     return Promise.reject(error)
-  })
+  });
 
   axios.updateBaseUrl = function (newBaseUrl) {
     axios.defaults.baseUrl = newBaseUrl
-  }
+  };
 
   axios.updateToken = function (newToken) {
     if (newToken && token !== newToken) {
-      token = newToken
+      token = newToken;
       axios.defaults.headers.common[keyName] = token
     }
-  }
+  };
 
   axios.updateLoginMethod = function (newMethod) {
     login = newMethod
-  }
+  };
 
   return axios
 }

@@ -1,4 +1,4 @@
-# k2box-scafford
+# k2box-scaffold
 
 A starting template for k2-box embedded vue apps (using iView as component library).
 
@@ -10,7 +10,7 @@ npm upgrade -g @vue/cli
 2. create a repo and `git clone` it down.
 3. initialize a vue project using vue-cli.
 ```bash
-cd k2box-scafford
+cd k2box-scaffold
 vue create .
 ```
 4. tweaks on eslint
