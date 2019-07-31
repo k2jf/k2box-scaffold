@@ -11,6 +11,47 @@ npm install
 ```
 **please do not PUSH back to this repo. `git pull` will keep track of the latest change and update YOUR project**
 
+## project file structure
+<pre>
+.
+├── babel.config.js
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── public
+│   ├── cover.png ----------> Your app thumbnail when deployed
+│   ├── favicon.ico
+│   └── index.html
+├── README.md
+├── src
+│   ├── api ----------------> methods about http requests
+│   │   └── index.js
+│   ├── App.vue ------------> Root Vue component
+│   ├── assets -------------> images used in project, such as wallpaper, icons, etc
+│   │   └── logo.png
+│   ├── components ----------------> project-wide reusable components
+│   │   └── HelloWorld.vue
+│   ├── iview-variables.less ------> use this to override iView's default theme
+│   ├── libs ----------------------> useful functions
+│   │   ├── color-palette.js
+│   │   ├── date-time.js
+│   │   └── utils.js
+│   ├── main.js -------------------> Project Entry. APP_ID is specified here.
+│   ├── plugins -------------------> Vue plugins.
+│   │   ├── iview.js
+│   │   └── kfc-axios
+│   │       ├── index.js
+│   │       ├── my-fetch-axios.js
+│   │       └── README.md
+│   ├── router.js ----------------> simple-structured route map
+│   ├── store.js -----------------> global state-management util
+│   └── views --------------------> your pages
+│       ├── About.vue
+│       └── Home.vue
+└── vue.config.js ----------------> vue config, containing proxy settings.
+
+</pre>
+
 ## what have I done on this project
 1. use newest vue-cli to create the project
 ```bash
