@@ -2,6 +2,15 @@
 
 A starting template for k2-box embedded vue apps (using iView as component library).
 
+## install
+
+> you first need a new git repo; then pull this template into that repo by using:
+```bash
+git pull --allow-unrelated-histories git@github.com:k2jf/k2box-scaffold.git master
+npm install
+```
+**please do not PUSH back to this repo. `git pull` will keep track of the latest change and update YOUR project**
+
 ## what have I done on this project
 1. use newest vue-cli to create the project
 ```bash
