@@ -2,14 +2,24 @@
 
 A starting template for k2-box embedded vue apps (using iView as component library).
 
-## install
+## install & run
 
-> you first need a new git repo; then pull this template into that repo by using:
+you first need a new git repo; then pull this template into that repo by using:
 ```bash
 git pull --allow-unrelated-histories git@github.com:k2jf/k2box-scaffold.git master
 npm install
 ```
-**please do not PUSH back to this repo. `git pull` will keep track of the latest change and update YOUR project**
+
+and you should change the `global.APP_ID` inside `main.js`, for example, 'com.k2data.foo'
+
+then, you can start the server by `npm run serve`.
+
+If you see **errors in homepage**, don't worry, because they are coded by design.
+The errors contain some useful information for your development.
+
+
+> **please DO NOT push back to this repo. `git pull` will keep track of the latest change and update YOUR project**
+
 
 ## project file structure
 <pre>
@@ -94,6 +104,7 @@ copy all files inside `/dist` to the corresponding folder in box server.
 ## k2box app general contract
 
 1. app should expose a bundle of static files with `index.html` and `cover.png` under the root.
+(`cover.png`'s size: 480px * 300px)
 
 2. app should be SPA (Single Page Application), and use `hash-mode`.
 
